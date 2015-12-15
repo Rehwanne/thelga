@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+
 import os
 import re
 
 import telebot
-
+import random
 import helga.quotes
 import helga.helper
 
@@ -69,6 +71,12 @@ def search_quote_handler(message):
         bot.send_message(message.chat.id, helga.helper.format_quotes(quotes))
     else:
         bot.reply_to(message, "Sorry, I don’t have any quotes containing that string. \U0001F61E")
+
+@bot.message_handler(commands=['jn'], content_types=['text'])
+def yesno(message):
+    answers = ["ja","nein"]
+    match = re.match('/jn', message.text)
+    bot.reply_to(message, random.choice(answers))
 
 
 def main():
